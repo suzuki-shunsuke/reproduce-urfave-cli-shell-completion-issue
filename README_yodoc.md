@@ -4,7 +4,7 @@ dest: README.md
 
 # reproduce-urfave-cli-shell-completion-issue
 
-Reproduce the issue of [urfave/cli](https://github.com/urfave/cli) shell completion
+This repository includes a document and sample code to reproduce the issue of [urfave/cli](https://github.com/urfave/cli) shell completion.
 
 The version of urfave/cli: [v2.27.2](go.mod).
 
@@ -103,3 +103,12 @@ The output is different from the output of `./dist/child --generate-bash-complet
 # Output
 {{.CombinedOutput -}}
 ```
+
+## Note
+
+After double dash `--` only positional arguments are accepted.
+
+https://unix.stackexchange.com/a/11382
+
+So when we executes `./dist/root exec -- ./dist/child --generate-bash-completion`, `./dist-root` should treat the argument `--generate-bash-completion` as a positional argument, but actually it treats the argument as a flag.
+This is the cause of this issue.
